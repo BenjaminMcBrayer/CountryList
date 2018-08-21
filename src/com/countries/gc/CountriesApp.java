@@ -2,11 +2,13 @@
 
 package com.countries.gc;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  * 
- * @author benjamin
+ * @author BenjaminMcBrayer
+ * @version 1.0
  *
  */
 
@@ -14,9 +16,15 @@ public class CountriesApp {
 
 	public static void main(String[] args) {
 		Scanner scnr = new Scanner(System.in);
+		ArrayList<Country> countries = new ArrayList<>();
 		int userNum;
 
 		System.out.println("Welcome to the Countries Maintenance Application!");
+
+		// The lines below test a password method. Without the name of a country in the
+		// list, the menu options will not be shown.
+		 String userInput = Validator.getString(scnr, "Please enter the name of the country: ");
+		CountriesTextFile.validateCountry2(userInput, countries);
 
 		do {
 			System.out.println(
@@ -32,7 +40,6 @@ public class CountriesApp {
 	}
 
 	public static void maintainCountries(Scanner scnr, int userNum) {
-		String userCountry;
 		switch (userNum) {
 
 		case 1:
@@ -40,13 +47,18 @@ public class CountriesApp {
 			break;
 
 		case 2:
-			userCountry = Validator.getString(scnr, "Please enter a country: ");
-			CountriesTextFile.writeToFile(userCountry, "resources", "countries.txt");
+			String userInput1 = Validator.getString(scnr, "Please enter a country: ");
+			String userInput2 = Validator.getString(scnr, "Please enter the name of the capital: ");
+			Country userCountry1 = new Country(userInput1, userInput2);
+			CountriesTextFile.writeToFile(userCountry1, "resources", "countries.txt");
 			break;
 
 		case 3:
-			userCountry = Validator.getString(scnr, "Please enter the name of the country you wish to delete: ");
-			CountriesTextFile.removeFromFile(userCountry, "resources", "countries.txt", "countries.txt.tmp");
+			userInput1 = Validator.getString(scnr, "Please enter the name of the country you wish to delete: ");
+			String emptyCapital = "";
+			Country userCountry2 = new Country(userInput1, emptyCapital);
+			CountriesTextFile.writeToFile(userCountry2, "resources", "tempCountries");
+			CountriesTextFile.removeFromFile(userInput1, "resources", "countries.txt", "tempCountries");
 			break;
 
 		case 4:

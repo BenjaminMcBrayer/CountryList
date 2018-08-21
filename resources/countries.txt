@@ -1,5 +1,4 @@
-United States
-United Kingdom
-Togo
-Mongolia
-Brazil
+Ireland,Dublin
+Brazil,Brazilia
+Greece,Athens
+Mexico,Mexico City
