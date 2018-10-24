@@ -1,8 +1,5 @@
-//Benjamin McBrayer, 5.9.2018
-
 package com.countries.gc;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -15,16 +12,12 @@ import java.util.Scanner;
 public class CountriesApp {
 
 	public static void main(String[] args) {
+		// Declare and initialize variables;
 		Scanner scnr = new Scanner(System.in);
-		ArrayList<Country> countries = new ArrayList<>();
-		int userNum;
+		int userNum = 0;
 
+		// Introduce program.
 		System.out.println("Welcome to the Countries Maintenance Application!");
-
-		// The lines below test a password method. Without the name of a country in the
-		// list, the menu options will not be shown.
-		 String userInput = Validator.getString(scnr, "Please enter the name of the country: ");
-		CountriesTextFile.validateCountry2(userInput, countries);
 
 		do {
 			System.out.println(
@@ -43,7 +36,7 @@ public class CountriesApp {
 		switch (userNum) {
 
 		case 1:
-			CountriesTextFile.readFromFile("resources", "countries.txt");
+			CountriesTextFile.displayCountries(CountriesTextFile.readFromFileToArrayList("resources/countries.txt"));
 			break;
 
 		case 2:
@@ -57,8 +50,8 @@ public class CountriesApp {
 			userInput1 = Validator.getString(scnr, "Please enter the name of the country you wish to delete: ");
 			String emptyCapital = "";
 			Country userCountry2 = new Country(userInput1, emptyCapital);
-			CountriesTextFile.writeToFile(userCountry2, "resources", "tempCountries");
-			CountriesTextFile.removeFromFile(userInput1, "resources", "countries.txt", "tempCountries");
+			CountriesTextFile.writeToFile(userCountry2, "resources", "tempcountries.txt");
+			CountriesTextFile.removeFromFile(userInput1, "resources", "countries.txt", "tempcountries.txt");
 			break;
 
 		case 4:

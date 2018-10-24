@@ -49,7 +49,7 @@ public class CountriesTextFile {
 		}
 	}
 
-	// Reads a list of countries from a file
+	// Read a list of countries from a file.
 	public static void readFromFile(String dir, String fileName) {
 		Path readFile = Paths.get(dir, fileName);
 		File file = readFile.toFile(); // Convert to a file object.
@@ -72,7 +72,7 @@ public class CountriesTextFile {
 
 	}
 
-	// Adds a country to a file.
+	// Add a country to a file.
 	public static void writeToFile(Country country, String dir, String fileName) {
 		Path writeFile = Paths.get(dir, fileName);
 		File file = writeFile.toFile();
@@ -88,7 +88,7 @@ public class CountriesTextFile {
 
 	}
 
-	// Deletes a country from a file.
+	// Delete a country from a file.
 	public static void removeFromFile(String lineToRemove, String dir, String originalFileName, String tempFileName) {
 		Path removeLineFromOriginalFile = Paths.get(dir, originalFileName);
 		File file = removeLineFromOriginalFile.toFile();
@@ -103,11 +103,10 @@ public class CountriesTextFile {
 			String line = null;
 
 			while ((line = br.readLine()) != null) {
-				if (!line.endsWith(lineToRemove)) {
+				if (!line.startsWith(lineToRemove)) {
 					pw.println(line);
 				}
 			}
-
 			pw.close();
 			br.close();
 
@@ -116,7 +115,6 @@ public class CountriesTextFile {
 				System.out.println("Could not delete file.");
 				return;
 			}
-
 			// Rename new file.
 			if (!tempFile.renameTo(file)) {
 				System.out.println("Could not rename file.");
@@ -165,14 +163,13 @@ public class CountriesTextFile {
 			br1.close();
 			br2.close();
 			pw.close();
-			
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public static ArrayList<Country> readFromFileToArrayList(String filePath) {
@@ -201,30 +198,10 @@ public class CountriesTextFile {
 		}
 		return countries;
 	}
-
-	public static void validateCountry(String userInput, ArrayList<Country> countries) {
-		countries = CountriesTextFile.readFromFileToArrayList("resources/countries.txt");
-		for (Country c : countries) {
-			if (c.getCountryName().equalsIgnoreCase(userInput)) {
-				System.out.println("\nMENU\n1 - Add a country\n2 - Delete a country");
-			}
-		}
-	}
 	
-	public static boolean validateCountry2(String userInput, ArrayList<Country> countries) {
-		countries = CountriesTextFile.readFromFileToArrayList("resources/countries.txt");
-		HashSet<String> hs = new HashSet<String>();
-		
+	public static void displayCountries(ArrayList<Country> countries) {
 		for (Country c : countries) {
-			hs.add(c.getCountryName());
-		}
-		if (hs.contains(userInput)) {
-			System.out.println(
-					"\nOPTIONS\n1 - View the current menu\n2 - Add an item to the menu\n3 - Remove an item from the menu");
-			return true;
-		} else {
-			System.out.println("ID not recognized. Please try again.");
-			return false;
+			System.out.println(c);
 		}
 	}
 }
